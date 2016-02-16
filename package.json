@@ -1,0 +1,24 @@
+{
+  "name": "app-name",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bower-files": "^3.11.3",
+    "browser-sync": "^2.11.1",
+    "browserify": "^13.0.0",
+    "chai": "^3.5.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^1.5.2",
+    "gulp-util": "^3.0.7",
+    "mocha": "^2.4.5",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
