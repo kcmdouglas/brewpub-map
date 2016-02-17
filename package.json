@@ -1,7 +1,6 @@
 {
-  "name": "app-name",
+  "name": "brewpubs",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "mocha spec"
@@ -22,5 +21,6 @@
     "gulp-util": "^3.0.7",
     "mocha": "^2.4.5",
     "vinyl-source-stream": "^1.1.0"
-  }
+  },
+  "description": ""
 }

@@ -2,11 +2,33 @@
 <html>
   <head>
     <link rel="stylesheet" href="build/css/vendor.css">
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
     <script src="build/js/vendor.min.js"></script>
     <script type="text/javascript" src="build/js/app.js"></script>
-    <title>App Name</title>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM5jlN3m45LxuaAdTbOozyn-Kkvunw79o&libraries=places"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM5jlN3m45LxuaAdTbOozyn-Kkvunw79o&callback=initMap">
+    </script>
+    <title>Brewpubs</title>
   </head>
   <body>
+    <h1>Brewpubs</h1>
+
+    <div id="map"></div>
+      <script type="text/javascript">
+
+      var map;
+      function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+      });
+      }
+
+      </script>
 
   </body>
 </html>
