@@ -48,8 +48,22 @@ function createMarker(place) {
 
   service.getDetails(place, function(place, status) {
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name + "<br />" + place.formatted_address +"<br />" + place.website + "<br />" + place.rating + "<br />" + place.formatted_phone_number);
+      var isItOpen;
+      if (place.opening_hours.open_now) {
+        isItOpen = "Open now!";
+      } else {
+        isItOpen = "Not open just yet!";
+      }
+      infowindow.setContent("<strong> ????? </strong><br />" + place.formatted_address +"<br />" + place.rating + " stars<br />" + isItOpen + "<br /> <span id='clickableTitle'>Hours:</span><span id='hours'>" +
+      place.opening_hours.weekday_text[0] + "<br />" +
+      place.opening_hours.weekday_text[1] + "<br />" +
+      place.opening_hours.weekday_text[2] + "<br />" +
+      place.opening_hours.weekday_text[3] + "<br />" +
+      place.opening_hours.weekday_text[4] + "<br />" +
+      place.opening_hours.weekday_text[5] + "<br />" +
+      place.opening_hours.weekday_text[6] + "</span>");
       infowindow.open(map, this);
+      console.log(place.opening_hours);
     });
   });
 }
