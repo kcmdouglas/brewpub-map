@@ -1,4 +1,5 @@
 var map;
+var service;
   initMap = function() {
     var Portland = {lat: 45.5200, lng: -122.64};
     map = new google.maps.Map(document.getElementById('map'), {
@@ -8,7 +9,7 @@ var map;
 
     infowindow = new google.maps.InfoWindow();
 
-    var service = new google.maps.places.PlacesService(map);
+    service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
       location: Portland,
       radius: 20000,
@@ -53,6 +54,25 @@ callback = function(results, status) {
   }
 };
 
+// TODO: create getDetails method to get the details of each place
+// Next step: use global service var
+// Place Details documentation - https://developers.google.com/maps/documentation/javascript/places#place_details
+// Place Details example - https://developers.google.com/maps/documentation/javascript/examples/place-details
+// Library of Place properties - https://developers.google.com/maps/documentation/javascript/3.exp/reference#PlaceResult
+
+
+
+// service.getDetails({
+//   placeId: 'place.place_id'
+// }, function(place, status) {
+//   if (status === google.maps.places.PlacesServiceStatus.OK) {
+//     var marker = new google.maps.Marker({
+//       map: map,
+//       position: place.geometry.location
+//     });
+//   }
+// });
+
 createMarker = function (place) {
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
@@ -63,7 +83,7 @@ createMarker = function (place) {
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
           'Place ID: ' + place.place_id + '<br>' +
-          place.formatted_phone_number + '</div>');
+          place.formatted_address + '</div>');
     infowindow.open(map, this);
   });
 };
