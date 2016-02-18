@@ -13,46 +13,24 @@ var service;
     service.nearbySearch({
       location: Portland,
       radius: 20000,
-      types: ['bar', 'night_club']
+      keyword: ("brewery")
     }, callback);
 
   };
-  // var infoWindow = new google.maps.InfoWindow({map: map});
 
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     var pos = {
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude
-  //     };
-  //
-  //     infoWindow.setPosition(pos);
-  //     infoWindow.setContent('Location found.');
-  //     map.setCenter(pos);
-  //   }, function() {
-  //     handleLocationError(true, infoWindow, map.getCenter());
-  //   });
-  // } else {
-  //   // Browser doesn't support Geolocation
-  //   handleLocationError(false, infoWindow, map.getCenter());
-  // }
-// }
-
-// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-//   infoWindow.setPosition(pos);
-//   infoWindow.setContent(browserHasGeolocation ?
-//                         'Error: The Geolocation service failed.' :
-//                         'Error: Your browser doesn\'t support geolocation.');
-// }
 
 
 callback = function(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
+    for (var i = 0; i <=9; i++) {
       createMarker(results[i]);
     }
   }
 };
+
+
+
+
 
 // TODO: create getDetails method to get the details of each place
 // Next step: use global service var
@@ -61,32 +39,19 @@ callback = function(results, status) {
 // Library of Place properties - https://developers.google.com/maps/documentation/javascript/3.exp/reference#PlaceResult
 
 
-
-// service.getDetails({
-//   placeId: 'place.place_id'
-// }, function(place, status) {
-//   if (status === google.maps.places.PlacesServiceStatus.OK) {
-//     var marker = new google.maps.Marker({
-//       map: map,
-//       position: place.geometry.location
-//     });
-//   }
-// });
-
-createMarker = function (place) {
+function createMarker(place) {
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location
   });
 
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-          'Place ID: ' + place.place_id + '<br>' +
-          place.formatted_address + '</div>');
-    infowindow.open(map, this);
+  service.getDetails(place, function(place, status) {
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name + "<br />" + place.formatted_address +"<br />" + place.website + "<br />" + place.rating + "<br />" + place.formatted_phone_number);
+      infowindow.open(map, this);
+    });
   });
-};
-
+}
 
 exports.map = map;
