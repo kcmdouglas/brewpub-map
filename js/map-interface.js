@@ -3,11 +3,29 @@ var service;
 var infowindow;
 
   initMap = function() {
+
+    var styles = [
+      {
+        featureType: "poi.business",
+        stylers: [
+          { visibility: "off" }
+        ]
+      }
+    ];
+    var styledMap = new google.maps.StyledMapType(styles,
+      {name: "Styled Map"});
+
+
     var Portland = {lat: 45.5200, lng: -122.64};
-    map = new google.maps.Map(document.getElementById('map'), {
+    var mapOptions = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 45.5200, lng: -122.64},
-    zoom: 12
+    zoom: 12,
+    mapTypeControlOptions: {
+      mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+    }
     });
+
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     var input = (document.getElementById('pac-input'));
 
@@ -18,7 +36,10 @@ var infowindow;
     var cityMarker = new google.maps.Marker({
       map: map,
       anchorPoint: new google.maps.Point(0, -29)
-});
+    });
+
+    map.mapTypes.set('map_style', styledMap);
+    map.setMapTypeId('map_style');
 
     autocomplete.addListener('place_changed', function() {
       infowindow.close();
@@ -57,6 +78,19 @@ var infowindow;
       radius: 20000,
       keyword: ("brewery")
     }, callback);
+
+    // $("#open-now").click(function() {
+    //   map.addListener('place_changed', function(){
+    //     var place = map.getPlace(places_changed);
+    //     service = new google.maps.places.PlacesService(map);
+    //     service.nearbySearch({
+    //       location: Portland,
+    //       radius: 20000,
+    //       keyword: ("brewery")
+    //       openNow: true;
+    //     });
+    //   });
+    // });
 
   };
 
